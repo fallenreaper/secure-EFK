@@ -17,7 +17,8 @@ RUN buildDeps="sudo make gcc g++ libc-dev" \
  && rm -rf /var/lib/apt/lists/* \
  && rm -rf /tmp/* /var/tmp/* /usr/lib/ruby/gems/*/cache/*.gem
 
-COPY fluent.conf /fluentd/etc/fluent.conf
+# Set my FluentD conf file.
+COPY conf/fluent.conf /fluentd/etc/fluent.conf
 COPY entrypoint.sh /bin/.
 
 # USER fluent
