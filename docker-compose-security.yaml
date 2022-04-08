@@ -69,7 +69,6 @@ services:
       retries: 120
 
   elasticsearch:
-    container_name: elasticsearch
     depends_on:
       setup:
         condition: service_healthy
@@ -79,8 +78,6 @@ services:
       - esdata01:/usr/share/elasticsearch/data
     ports:
       - ${ES_PORT}:9200
-    expose:
-      - 9200
     environment:
       - node.name=elasticsearch
       - cluster.name=${CLUSTER_NAME}
@@ -234,7 +231,6 @@ services:
       elasticsearch:
         condition: service_healthy
     build: fluentd/.
-    image: fluent/fluentd:v1.12-debian-1
     volumes:
       - certs:/usr/share/fluentd/certs
       - ./fluentd/log:/fluentd/log
@@ -242,8 +238,6 @@ services:
     ports:
       - "24224:24224"
       - "24224:24224/udp"
-    links:
-      - "elasticsearch"
 
 volumes:
   certs:
